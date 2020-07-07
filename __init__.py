@@ -16,14 +16,21 @@ import pytz
 class IDates:
     def __init__(self, timezone="UTC"):
         self.timezone = pytz.timezone(timezone)
-        self.utc = pytz.utc
 
     def timestamp_to_string(self, timestamp, fmt="%Y-%m-%d %H:%M:%S"):
+        """
+        1. timestamp: 时间戳
+        2. fmt: 转换后字符串的格式
+        """
         date = datetime.fromtimestamp(timestamp)
         date = date.astimezone(self.timezone)
         return date.strftime(fmt)
 
     def string_to_timestamp(self, date, fmt="%Y-%m-%d %H:%M:%S"):
+        """
+        1. date: 字符串格式
+        2. fmt: date必须符合fmt
+        """
         date = datetime.strptime(date, fmt)
         date = date.astimezone(self.timezone)
         return date.timestamp()
