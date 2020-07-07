@@ -1,0 +1,29 @@
+0. __init__(timezone=UTC):
+1. timestamp_to_string(timestamp, fmt="%Y-%m-%d %H:%M:%S"): 时间戳转字符串
+2. string_to_timestamp(date, fmt="%Y-%m-%d %H:%M:%S"): 字符串转时间戳
+   1. date: datetime.datetime
+3. timestamp_to_datetime(timestamp): 时间戳转python datetime.datetime
+4. string_to_datetime(date, fmt="%Y-%m-%d %H:%M:%S"): 字符串转python datetime.datetime
+   1. date: 符合fmt的字符串
+5. datetime_to_string(date, fmt="%Y-%m-%d %H:%M:%S"): python datetime.datetime 转 字符串
+   1. date: datetime.datetime
+6. get_timestamp_range(timestamp, delta, is_zero=True): 返回范围时间戳
+7. gete_date_range_steps(start_timestamp, end_timestamp, fmt="%Y-%m-%d %H:%M:%S", steps=1): 返回范围日期
+
+#+BEGIN_SRC python
+  if __name__ == '__main__':
+      obj = IDates("Asia/Shanghai")
+      start = obj.string_to_timestamp("2020-07-01", fmt="%Y-%m-%d")
+      end = obj.string_to_timestamp("2020-07-14", fmt="%Y-%m-%d")
+      date_range = obj.get_date_range_steps(start, end, fmt="%Y-%m-%d", steps=1)
+      for date in date_range:
+          print(date)
+
+      now = datetime.now()
+      timestamp_range = obj.get_timestamp_range(now.timestamp(), 3)
+      date_range = obj.get_date_range(int(timestamp_range.start), int(timestamp_range.end))
+      print(obj.timestamp_to_datetime(int(timestamp_range.start)))
+      print(obj.timestamp_to_datetime(int(timestamp_range.end)))
+      for date in date_range:
+          print(date)
+#+END_SRC
