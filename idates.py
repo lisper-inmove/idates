@@ -55,16 +55,25 @@ class IDates:
         self.date = datetime.strptime(date, fmt)
 
     def to_timestamp(self):
+        """ datetime转成时间戳
+        """
         return self.date.timestamp()
 
     def to_string(self, fmt="%Y-%m-%d %H:%M:%S"):
+        """ datetime转成字符串
+        """
         return self.date.strftime(fmt)
 
     def to_tz_string(self, tz, fmt="%Y-%m-%d %H:%M:%S"):
+        """ 把self.date转成tz指定的时区
+        """
         if isinstance(tz, str):
             tz = pytz.timezone(tz)
         return self.date.astimezone(tz).strftime(fmt)
 
     def days_jump(self, n):
+        """ 如果n大于0,则返回n天后
+        如果n小于0则返回n天前
+        """
         delta = timedelta(n)
         return self.date + delta
